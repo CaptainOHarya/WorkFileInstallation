@@ -12,11 +12,6 @@ public class Main {
 
 		String path = ("E:" + File.separator + "Games");
 
-		// System.out.println("File.separator = " + File.separator);
-		// System.out.println("File.separatorChar = " + File.separatorChar);
-		// System.out.println("File.pathSeparator = " + File.pathSeparator);
-		// System.out.println("File.pathSeparatorChar = " + File.pathSeparatorChar);
-
 		makeDir(path, "scr");
 		makeDir(path, "res");
 		makeDir(path, "savegames");
@@ -36,16 +31,17 @@ public class Main {
 
 		// Запишем данные из StringBuilder в наш файл
 		String text = sb.toString();
+		String path1 = ("E:" + File.separator + "Games" + File.separator + "temp");
+		
 
 		// Решение через FileWriter
-		try (FileWriter writer = new FileWriter("E:\\Games\\temp\\temp.txt")) {
+		try (FileWriter writer = new FileWriter(path1 + File.separator + "temp.txt", false)) {
 			writer.write(text);
 			writer.flush();
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 		// Можно вывести и в консоль)))
-
 		System.out.println(sb);
 
 	}
@@ -53,9 +49,8 @@ public class Main {
 	private static void makeDir(String namePath, String nameDir) {
 
 		File creatureDir = new File(namePath + File.separator + nameDir);
-		if (creatureDir.mkdir())
-			;
-		sb.append("В каталоге " + namePath + " создан подкаталог " + nameDir + "\n");
+		if (creatureDir.mkdir());
+		    sb.append("В каталоге " + namePath + " создан подкаталог " + nameDir + "\n");
 
 	}
 
@@ -67,12 +62,11 @@ public class Main {
 
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
-			sb.append("Ошибка. В каталоге " + namePath + " создать файл " + nameFile + " нельзя \n");
+			    sb.append("Ошибка. В каталоге " + namePath + " создать файл " + nameFile + " нельзя \n");
 		}
 
 	}
 
 }
-
 
 
