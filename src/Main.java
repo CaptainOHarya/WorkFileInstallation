@@ -6,80 +6,33 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
-		StringBuilder sb = new StringBuilder();
 
-		File scr = new File("E:\\Games\\scr");
-		File res = new File("E:\\Games\\res");
-		File saveGames = new File("E:\\Games\\savegames");
-		File temp = new File("E:\\Games\\temp");
+		String path = ("E:" + File.separator + "Games");
 
-		if (scr.mkdir())
-			;
-		sb.append("1. В каталоге Games создан подкаталог scr \n");
-		if (res.mkdir())
-			;
-		sb.append("2. В каталоге Games создан подкаталог res \n");
-		if (saveGames.mkdir())
-			;
-		sb.append("3. В каталоге Games создан подкаталог savegames \n");
-		if (temp.mkdir())
-			;
-		sb.append("4. В каталоге Games создан подкаталог temp \n");
+		// System.out.println("File.separator = " + File.separator);
+		// System.out.println("File.separatorChar = " + File.separatorChar);
+		// System.out.println("File.pathSeparator = " + File.pathSeparator);
+		// System.out.println("File.pathSeparatorChar = " + File.pathSeparatorChar);
 
-		File mains = new File("E:\\Games\\scr\\main");
-		File test = new File("E:\\Games\\scr\\test");
-		if (mains.mkdir())
-			;
-		sb.append("5. В подкаталоге scr создан подкаталог main \n");
-		if (test.mkdir())
-			;
-		sb.append("6. В подкаталоге scr создан подкаталог test \n");
+		makeDir(path, "scr");
+		makeDir(path, "res");
+		makeDir(path, "savegames");
+		makeDir(path, "temp");
 
-		File mainJava = new File("E:\\Games\\scr\\main", "Main.java");
-		try {
-			if (mainJava.createNewFile())
-				sb.append("7. В подкаталоге main создан файл Main.java \n");
-			// System.out.println("Файл создан");
-		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
-			sb.append("7. Ошибка. В подкаталоге main создать файл Main.java нельзя \n");
-		}
+		makeDir(path + File.separator + "scr", "main");
+		makeDir(path + File.separator + "scr", "test");
 
-		File utilsJava = new File("E:\\Games\\scr\\main", "Utils.java");
-		try {
-			if (utilsJava.createNewFile())
-				sb.append("8. В подкаталоге main создан файл Utils.java \n");
+		makeFile(path + File.separator + "scr" + File.separator + "main", "Main.java");
+		makeFile(path + File.separator + "scr" + File.separator + "main", "Utils.java");
 
-		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
-			sb.append("8. Ошибка. В подкаталоге main создать файл Utils.java нельзя \n");
-		}
+		makeDir(path + File.separator + "res", "drawables");
+		makeDir(path + File.separator + "res", "vectors");
+		makeDir(path + File.separator + "res", "icons");
 
-		File drawables = new File("E:\\Games\\res\\drawables");
-		File vectors = new File("E:\\Games\\res\\vectors");
-		File icons = new File("E:\\Games\\res\\icons");
-
-		if (drawables.mkdir())
-			;
-		sb.append("9. В подкаталоге res создан подкаталог drawables \n");
-		if (vectors.mkdir())
-			;
-		sb.append("10. В подкаталоге res создан подкаталог vectors \n");
-		if (icons.mkdir())
-			;
-		sb.append("11. В подкаталоге res создан подкаталог icons \n");
-
-		File temps = new File("E:\\Games\\temp", "temp.txt");
-		try {
-			if (temps.createNewFile())
-				sb.append("12. В подкаталоге temp создан файл temp.txt \n");
-
-		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
-			sb.append("12. Ошибка. В подкаталоге temp создать файл temp.txt нельзя \n");
-		}
+		makeFile(path + File.separator + "temp", "temp.txt");
 
 		// Запишем данные из StringBuilder в наш файл
 		String text = sb.toString();
@@ -91,13 +44,35 @@ public class Main {
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
+		// Можно вывести и в консоль)))
 
 		System.out.println(sb);
 
 	}
 
-}
+	private static void makeDir(String namePath, String nameDir) {
 
+		File creatureDir = new File(namePath + File.separator + nameDir);
+		if (creatureDir.mkdir())
+			;
+		sb.append("В каталоге " + namePath + " создан подкаталог " + nameDir + "\n");
+
+	}
+
+	private static void makeFile(String namePath, String nameFile) {
+		File createFile = new File(namePath + File.separator + nameFile);
+		try {
+			if (createFile.createNewFile())
+				sb.append("В каталоге " + namePath + " создан файл " + nameFile + "\n");
+
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+			sb.append("Ошибка. В каталоге " + namePath + " создать файл " + nameFile + " нельзя \n");
+		}
+
+	}
+
+}
 
 
 
